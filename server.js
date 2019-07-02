@@ -114,6 +114,7 @@ app.listen(3331,()=>{                                   //app.listen here is use
 
 const express=require('express');
 const hbs=require('hbs');
+const port=process.env.PORT || 3331;  //this will work as ..process.env stores the all values of the environment as the key values pairs
 
 var app=express();
 
@@ -136,9 +137,10 @@ app.use((req,res,next)=>{
     next();
     });
 
-app.use((req,res,next)=>{     
-    res.render('maintain.hbs');
-    });
+//app.use((req,res,next)=>{     
+ //   res.render('maintain.hbs');
+ //   next();
+ //   });
 
 hbs.registerHelper('getCurrentYear', () => {    
     return new Date().getFullYear()             
@@ -165,6 +167,14 @@ app.get('/about', (req,res)=>{
    
 });
 
-app.listen(3331,()=>{                                 
-    console.log("server up to the port 3331");
+app.get('/Project',(req,res)=>{
+    res.render('Project.hbs',{
+        pageTitle: 'MY PROJECT PAGE',             
+        ADVANCEDTEMPLATE:'MODIFIED PROJECT PAGE',
+        //currentYear:new Date().getFullYear()
+    });
+});
+
+app.listen(port,()=>{                                 
+    console.log(`server is on the port ${port}`);
 });
